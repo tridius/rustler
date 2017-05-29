@@ -31,6 +31,7 @@ impl<'a> NifEncoder for NifTerm<'a> {
 }
 impl<'a> NifDecoder<'a> for NifTerm<'a> {
     fn decode(term: NifTerm<'a>) -> NifResult<Self> {
+        println!("testing");
         Ok(term)
     }
 }
@@ -52,6 +53,7 @@ impl<T> NifEncoder for Option<T> where T: NifEncoder {
 
 impl<'a, T> NifDecoder<'a> for Option<T> where T: NifDecoder<'a> {
     fn decode(term: NifTerm<'a>) -> NifResult<Self> {
+        println!("another test");
         if let Ok(term) = term.decode::<T>() {
             Ok(Some(term))
         } else {
@@ -76,6 +78,7 @@ impl<T, E> NifEncoder for Result<T, E> where T: NifEncoder, E: NifEncoder {
 
 impl<'a, T, E> NifDecoder<'a> for Result<T, E> where T: NifDecoder<'a>, E: NifDecoder<'a> {
     fn decode(term: NifTerm<'a>) -> NifResult<Self> {
+        println!("third test");
         let (decoded_atom, inner_term): (atom::NifAtom, NifTerm) = term.decode()?;
         if decoded_atom == atom::ok() {
             let ok_value: T = inner_term.decode()?;

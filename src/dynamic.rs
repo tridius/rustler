@@ -1,6 +1,6 @@
 use ::{NifTerm};
 use ::wrapper::check;
-
+#[derive(Debug)]
 pub enum TermType {
     Atom,
     Binary,
